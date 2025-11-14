@@ -58,25 +58,18 @@ static void draw_title(void)
 {
     pspDebugScreenSetXY(0, 3);
     printf("\n");
-    printf("  ╔═══════════════════════════════════════════════════════╗\n");
-    printf("  ║                                                       ║\n");
-    printf("  ║     ███████╗██████╗ ██╗     ██╗████████╗             ║\n");
-    printf("  ║     ██╔════╝██╔══██╗██║     ██║╚══██╔══╝             ║\n");
-    printf("  ║     ███████╗██████╔╝██║     ██║   ██║                ║\n");
-    printf("  ║     ╚════██║██╔═══╝ ██║     ██║   ██║                ║\n");
-    printf("  ║     ███████║██║     ███████╗██║   ██║                ║\n");
-    printf("  ║     ╚══════╝╚═╝     ╚══════╝╚═╝   ╚═╝                ║\n");
-    printf("  ║                                                       ║\n");
-    printf("  ║     ███████╗██╗███████╗██╗     ██████╗               ║\n");
-    printf("  ║     ██╔════╝██║██╔════╝██║     ██╔══██╗              ║\n");
-    printf("  ║     █████╗  ██║█████╗  ██║     ██║  ██║              ║\n");
-    printf("  ║     ██╔══╝  ██║██╔══╝  ██║     ██║  ██║              ║\n");
-    printf("  ║     ██║     ██║███████╗███████╗██████╔╝              ║\n");
-    printf("  ║     ╚═╝     ╚═╝╚══════╝╚══════╝╚═════╝               ║\n");
-    printf("  ║                                                       ║\n");
-    printf("  ║          Two-Player Cooperative Puzzle Game          ║\n");
-    printf("  ║                                                       ║\n");
-    printf("  ╚═══════════════════════════════════════════════════════╝\n");
+    printf("  ========================================================\n");
+    printf("  #     ###  ####  #     ### #####                      #\n");
+    printf("  #    #    #   #  #      #    #                        #\n");
+    printf("  #     ##  ####   #      #    #                        #\n");
+    printf("  #       # #      #      #    #                        #\n");
+    printf("  #    ###  #      ##### ###   #                        #\n");
+    printf("  #    #### ###  #### #     ####                        #\n");
+    printf("  #    #     #   #    #     #   #                       #\n");
+    printf("  #    ###   #   ###  #     #   #                       #\n");
+    printf("  #    #     #   #    #     #   #                       #\n");
+    printf("  #    #    ### #### ##### ####                         #\n");
+    printf("  ========================================================\n");
 }
 
 int main(void)
@@ -90,13 +83,18 @@ int main(void)
 
     /* Initialize the debug screen */
     pspDebugScreenInit();
+    
+    /* Draw menu once */
+    int menu_needs_redraw = 1;
 
     /* Main menu loop */
     while(1)
     {
-        /* Clear screen and set cursor to top-left */
-        pspDebugScreenClear();
-        pspDebugScreenSetXY(0, 0);
+        /* Only redraw menu when needed */
+        if (menu_needs_redraw) {
+            /* Clear screen and set cursor to top-left */
+            pspDebugScreenClear();
+            pspDebugScreenSetXY(0, 0);
 
         /* Display fancy title */
         draw_title();
@@ -105,7 +103,7 @@ int main(void)
         printf("\n\n");
         printf("                    Press START to begin\n");
         printf("\n");
-        printf("                    Press X to exit\n");
+        printf("                    Press SELECT to exit\n");
         printf("\n\n");
         
         /* Game description */
@@ -118,6 +116,9 @@ int main(void)
         printf("        │  • Avoid enemies (red tiles)                │\n");
         printf("        │  • Some boxes only one player can move!     │\n");
         printf("        └─────────────────────────────────────────────┘\n");
+            
+            menu_needs_redraw = 0;
+        }
 
         /* Read controller input */
         sceCtrlReadBufferPositive(&pad, 1);
@@ -131,19 +132,20 @@ int main(void)
             game_run(&game_ctx);
             game_cleanup(&game_ctx);
             
-            /* Return to menu after game ends */
+            /* Redraw menu after game ends */
+            menu_needs_redraw = 1;
             continue;
         }
 
-        /* Check if X button is pressed to exit */
-        if(pad.Buttons & PSP_CTRL_CROSS)
+        /* Check if SELECT button is pressed to exit */
+        if((pad.Buttons & PSP_CTRL_SELECT) && !(oldpad.Buttons & PSP_CTRL_SELECT))
         {
             break;
         }
 
         oldpad = pad;
 
-        /* Wait for next frame */
+        /* Wait for next frame to prevent flickering */
         sceDisplayWaitVblankStart();
     }
 

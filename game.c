@@ -222,6 +222,14 @@ void game_update(GameContext* ctx, SceCtrlData* pad)
         int new_x = ctx->player1.x + p1_dx;
         int new_y = ctx->player1.y + p1_dy;
         
+        /* Check if moving into enemy - instant death */
+        if (new_x >= 0 && new_x < FIELD_WIDTH && new_y >= 0 && new_y < FIELD_HEIGHT) {
+            if (ctx->field[new_y][new_x] == TILE_ENEMY) {
+                ctx->state = GAME_LOSE;
+                return;
+            }
+        }
+        
         /* Check for box push */
         TileType tile = ctx->field[new_y][new_x];
         if (tile == TILE_BOX || tile == TILE_GHOST_BOX) {
@@ -245,6 +253,14 @@ void game_update(GameContext* ctx, SceCtrlData* pad)
         int new_x = ctx->player2.x + p2_dx;
         int new_y = ctx->player2.y + p2_dy;
         
+        /* Check if moving into enemy - instant death */
+        if (new_x >= 0 && new_x < FIELD_WIDTH && new_y >= 0 && new_y < FIELD_HEIGHT) {
+            if (ctx->field[new_y][new_x] == TILE_ENEMY) {
+                ctx->state = GAME_LOSE;
+                return;
+            }
+        }
+        
         /* Check for box push */
         TileType tile = ctx->field[new_y][new_x];
         if (tile == TILE_BOX || tile == TILE_GHOST_BOX) {
@@ -263,12 +279,6 @@ void game_update(GameContext* ctx, SceCtrlData* pad)
         }
     }
     
-    /* Check for collision with enemies */
-    if (ctx->field[ctx->player1.y][ctx->player1.x] == TILE_ENEMY ||
-        ctx->field[ctx->player2.y][ctx->player2.x] == TILE_ENEMY) {
-        ctx->state = GAME_LOSE;
-    }
-    
     /* Count boxes in goals */
     ctx->boxes_in_goal = 0;
     for (int y = 0; y < FIELD_HEIGHT; y++) {
@@ -280,8 +290,8 @@ void game_update(GameContext* ctx, SceCtrlData* pad)
         }
     }
     
-    /* Check for SELECT button to quit */
-    if (pad->Buttons & PSP_CTRL_SELECT) {
+    /* Check for SELECT button to quit (press, not hold) */
+    if ((pad->Buttons & PSP_CTRL_SELECT) && !(oldpad.Buttons & PSP_CTRL_SELECT)) {
         ctx->state = GAME_QUIT;
     }
     
