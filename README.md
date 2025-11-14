@@ -15,11 +15,16 @@ Split-Field is a cooperative puzzle game for Sony PSP where two players share on
 
 ### Gameplay Mechanics
 
-- **Cooperative Play**: Two players must work together to solve each level
-- **Push Boxes**: Move boxes onto goal tiles (green)
-- **Ghost Boxes**: Special purple boxes that only one player can move
-- **Avoid Enemies**: Red tiles are dangerous - don't touch them!
-- **Team Strategy**: Some puzzles require coordinated movement from both players
+- **Split Screen Barrier**: A vertical yellow barrier divides the field - players cannot cross!
+- **Cooperative Play**: Two players must work together on opposite sides
+- **Mirror Boxes**: 
+  - Player 1 controls orange boxes (1 & 2)
+  - Player 2 controls blue boxes (3 & 4)
+  - When you push your box, its paired box moves the same way!
+  - Coordinate mirror movements to solve puzzles
+- **Moving Enemies**: Red enemies slowly chase each player on their side
+- **Push to Goals**: Move boxes onto green goal tiles
+- **Team Strategy**: Requires perfect coordination across the barrier
 
 Perfect for playing with a friend on a single PSP device!
 
@@ -154,11 +159,13 @@ All methods will create an `EBOOT.PBP` file in the `build/` directory, which is 
 
 ## Gameplay Tips
 
-1. **Work Together**: Both players must cooperate to solve puzzles
-2. **Ghost Boxes**: The purple boxes can only be moved by one specific player
-3. **Push Strategy**: Regular boxes (brown) can be pushed by either player
-4. **Avoid Enemies**: Red tiles are dangerous - coordinate to avoid them
-5. **Goal Placement**: Push boxes onto green goal tiles to progress
+1. **The Barrier**: Yellow vertical barrier in the middle - you can't cross it!
+2. **Mirror Magic**: When Player 1 pushes an orange box, the other orange box mirrors the move
+3. **Coordinate Pushes**: Plan your moves - mirror boxes move together
+4. **Enemy Avoidance**: Red enemies chase you - keep moving!
+5. **Split Strategy**: Each player controls their side, work together across the barrier
+6. **Box Colors**: Orange = Player 1, Blue = Player 2
+7. **Goal Placement**: Push boxes onto green goal tiles to win
 
 ## Cleaning Build Files
 

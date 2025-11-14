@@ -33,7 +33,8 @@ typedef enum {
     TILE_BOX,
     TILE_GHOST_BOX,  /* Box that only one player can move */
     TILE_ENEMY,
-    TILE_GOAL
+    TILE_GOAL,
+    TILE_BARRIER     /* Vertical barrier in middle */
 } TileType;
 
 /* Player structure */
@@ -43,15 +44,36 @@ typedef struct {
     int color;  /* For visual distinction */
 } Player;
 
+/* Enemy structure */
+typedef struct {
+    int x;
+    int y;
+    int target_player;  /* 1 or 2 */
+    int active;
+} Enemy;
+
+/* Mirror Box structure */
+typedef struct {
+    int x;
+    int y;
+    int owner;  /* 1 or 2 - which player controls it */
+} MirrorBox;
+
+#define MAX_ENEMIES 4
+#define MAX_MIRROR_BOXES 4
+
 /* Game context */
 typedef struct {
     Player player1;  /* Controlled by D-pad */
     Player player2;  /* Controlled by ABXO buttons */
     TileType field[FIELD_HEIGHT][FIELD_WIDTH];
+    Enemy enemies[MAX_ENEMIES];
+    MirrorBox mirror_boxes[MAX_MIRROR_BOXES];
     GameState state;
     int level;
     int boxes_in_goal;
     int total_boxes;
+    int enemy_move_counter;  /* For slow enemy movement */
 } GameContext;
 
 /* Function prototypes */
