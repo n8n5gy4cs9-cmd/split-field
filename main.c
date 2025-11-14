@@ -107,13 +107,12 @@ int main(void)
         printf("\n\n");
         
         /* Game description */
-        printf("        │  • 2 players share one PSP                  │\n");
-        printf("        │  • Player 1: D-PAD controls                 │\n");
-        printf("        │  • Player 2: ABXO buttons (as directions)   │\n");
-        printf("        │  • Work together to push boxes to goals     │\n");
-        printf("        │  • Avoid enemies (red tiles)                │\n");
-        printf("        │  • Some boxes only one player can move!     │\n");
-            
+        printf("        # 2 players share one PSP                  #\n");
+        printf("        # Player 1: D-PAD controls                 #\n");
+        printf("        # Player 2: ABXO buttons (as directions)   #\n");
+        printf("        # Work together to push boxes to goals     #\n");
+        printf("        # Avoid enemies (red tiles)                #\n");
+        printf("        # Some boxes only one player can move!     #\n");
             menu_needs_redraw = 0;
         }
 
