@@ -1,6 +1,27 @@
-# PSP Hello World Homebrew
+# Split-Field - PSP Two-Player Cooperative Puzzle Game
 
-This is a simple Hello World application for Sony PSP homebrew development.
+Split-Field is a cooperative puzzle game for Sony PSP where two players share one device to solve puzzles together.
+
+## Game Description
+
+**Split-Field** is a unique two-player cooperative puzzle game designed for the PSP. Both players control characters on the same screen using different controls:
+
+- **Player 1** uses the D-Pad (Up/Down/Left/Right)
+- **Player 2** uses the Action buttons as directional controls:
+  - Triangle = Up
+  - Cross (X) = Down
+  - Square = Left
+  - Circle = Right
+
+### Gameplay Mechanics
+
+- **Cooperative Play**: Two players must work together to solve each level
+- **Push Boxes**: Move boxes onto goal tiles (green)
+- **Ghost Boxes**: Special purple boxes that only one player can move
+- **Avoid Enemies**: Red tiles are dangerous - don't touch them!
+- **Team Strategy**: Some puzzles require coordinated movement from both players
+
+Perfect for playing with a friend on a single PSP device!
 
 ## Installation
 
@@ -62,54 +83,82 @@ Install VirtualBox and Ubuntu:
 2. Download Ubuntu 22.04 LTS
 3. Follow standard PSP toolchain installation in Ubuntu
 
-## Building the Hello World Application
+## Building the Game
 
-### If using Docker (Recommended):
+### Using GitHub Codespaces (Recommended):
 
+1. The build environment is automatically configured
+2. Simply run:
 ```bash
-~/psp-make
+make
 ```
 
-Or with the full Docker command:
+### Using Docker:
+
 ```bash
 docker run --rm -v "$PWD:/build" -w /build pspdev/pspdev:latest make
 ```
 
-### If using Native Installation:
+### Native Build:
 
-Once the toolchain is installed, build the application:
+If you have the PSP toolchain installed locally:
 
 ```bash
 make
 ```
 
-Both methods will create an `EBOOT.PBP` file, which is the executable format for PSP.
+All methods will create an `EBOOT.PBP` file in the `build/` directory, which is the executable format for PSP.
 
 ## Running on PSP
 
 ### On a Real PSP:
 
-1. Copy the `EBOOT.PBP` file to your PSP's memory stick:
-   - Create a folder structure: `PSP/GAME/HelloWorld/`
-   - Place `EBOOT.PBP` inside the `HelloWorld` folder
+1. Copy the `build/EBOOT.PBP` file to your PSP's memory stick:
+   - Create a folder structure: `PSP/GAME/SplitField/`
+   - Place `EBOOT.PBP` inside the `SplitField` folder
 
 2. On your PSP:
    - Navigate to Game → Memory Stick
-   - You should see "Hello World"
+   - You should see "Split-Field"
    - Press X to launch it
 
-### Using PPSSPP Emulator:
+3. In the game:
+   - Press START to begin playing
+   - Player 1 uses D-Pad
+   - Player 2 uses Triangle/Cross/Square/Circle
+   - Press SELECT during gameplay to return to menu
 
-1. Install PPSSPP:
-   ```bash
-   brew install --cask ppsspp
-   ```
+### On PPSSPP Emulator:
 
-2. Open PPSSPP and load the `EBOOT.PBP` file
+1. Download PPSSPP from [ppsspp.org](https://www.ppsspp.org/)
+2. Open PPSSPP and navigate to the `build/EBOOT.PBP` file
+3. Both players can use the same keyboard/controller or one player can use keyboard while the other uses a gamepad
 
-## Controls
+## Game Controls
 
-- **X Button**: Exit the application
+### Menu
+- **START**: Start the game
+- **X (Cross)**: Exit application
+
+### In-Game
+- **Player 1 (Red)**:
+  - D-Pad Up/Down/Left/Right: Move character
+  
+- **Player 2 (Blue)**:
+  - Triangle: Move Up
+  - Cross (X): Move Down
+  - Square: Move Left
+  - Circle: Move Right
+
+- **SELECT**: Return to main menu
+
+## Gameplay Tips
+
+1. **Work Together**: Both players must cooperate to solve puzzles
+2. **Ghost Boxes**: The purple boxes can only be moved by one specific player
+3. **Push Strategy**: Regular boxes (brown) can be pushed by either player
+4. **Avoid Enemies**: Red tiles are dangerous - coordinate to avoid them
+5. **Goal Placement**: Push boxes onto green goal tiles to progress
 
 ## Cleaning Build Files
 
@@ -121,10 +170,13 @@ make clean
 
 ## Project Structure
 
-- `main.c` - Main source code with Hello World implementation
-- `Makefile` - Build configuration for PSP
-- `install_psp_toolchain.sh` - Installation script for PSP development tools
-- `README.md` - This file
+- `main.c` - Main menu and application entry point
+- `game.c` - Core game logic and rendering
+- `game.h` - Game structures and function declarations
+- `Makefile` - Top-level build wrapper
+- `Makefile.base` - PSP-specific build configuration
+- `assets/` - Game icons and images
+- `build/` - Compiled output directory
 
 ## Troubleshooting
 
@@ -148,6 +200,15 @@ Make sure all dependencies are installed:
 ```bash
 brew install wget cmake autoconf automake libtool gcc make patch doxygen
 ```
+
+## Credits
+
+Split-Field - A two-player cooperative puzzle game for PSP
+Developed using the PSP Homebrew SDK
+
+## License
+
+This is a homebrew project for educational and entertainment purposes.
 
 ## Next Steps
 

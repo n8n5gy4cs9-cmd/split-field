@@ -4,12 +4,12 @@
 
 ROOT ?= ..
 
-TARGET = HelloWorld
+TARGET = SplitField
 
 # Look for sources in project root; objects are emitted in current dir (build/)
 VPATH := $(ROOT)
 
-OBJS = main.o
+OBJS = main.o game.o
 
 INCDIR = 
 CFLAGS = -O2 -G0 -Wall
@@ -21,10 +21,10 @@ LDFLAGS =
 LIBS = -lpsppower
 
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = Hello World
+PSP_EBOOT_TITLE = Split-Field
 # Use menu assets from the project root
-PSP_EBOOT_ICON = $(ROOT)/assets/ICON0.PNG
-PSP_EBOOT_PIC1 = $(ROOT)/assets/PIC1.PNG
+PSP_EBOOT_ICON = $(ROOT)/assets/icon0.png
+PSP_EBOOT_PIC1 = $(ROOT)/assets/pic1.png
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
